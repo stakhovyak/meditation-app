@@ -1,0 +1,52 @@
+spring:
+    application:
+        name: user_service
+    security:
+        user:
+            password: 123
+        filter:
+            order: 10
+    datasource:
+        url: jdbc:postgresql://postgres-db:5432/userdb
+        username: user
+        password: 123
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update  
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect  
+                show-sql: true  
+
+springdoc:
+    api-docs: 
+        path: /v3/api-docs
+        enabled: true
+    swagger-ui: 
+        use-root-path: true
+        enabled: true
+
+application:
+    description:
+        "Meditation App"
+    version:
+        "1.0"
+
+token:
+    signing:
+        key:
+            "hi_mom"
+
+logging:
+    level: 
+        org:
+            springframework:
+                web: 
+                    DEBUG
+        com:
+            fasterxml:
+                jackson:
+                    DEBUG
+
+
