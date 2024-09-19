@@ -4,7 +4,7 @@
 
 - null body in request, jwtFilter gets everything right, then
 dispatcher servlet gets POST /auth/register, parameters={}
-why the fuck?
+why the fuck? May be caused by RegistrationController or/and AuthService
 
 ## TODOS
 
