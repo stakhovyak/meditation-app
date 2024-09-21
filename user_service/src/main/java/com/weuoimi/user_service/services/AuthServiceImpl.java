@@ -33,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
         Optional<String> usersEmail = Optional.ofNullable(request.getEmail()).orElseThrow(() -> new  IllegalArgumentException());
         
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(usersEmail, usersPassword));
+                new UsernamePasswordAuthenticationToken(usersEmail.get(), usersPassword.get()));
 
         User user = userRepository.findByEmail(usersEmail.get())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
@@ -59,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
 
         var jwt = jwtService.generateToken(user);
-        
+
         return JwtAuthResponse.builder().token(jwt).build();
     }
 }
