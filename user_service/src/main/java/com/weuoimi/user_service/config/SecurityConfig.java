@@ -34,6 +34,7 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
 
+    @SuppressWarnings("unused")
     private final UserDetailsService userService;
 
     @Bean

@@ -18,7 +18,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 
-
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -39,8 +38,10 @@ public class LoginController {
     public ResponseEntity<JwtAuthResponse> loginProfile(@RequestBody LoginRequestDto loginRequest) {
         
         try {
+
             return ResponseEntity.ok(authService.login(loginRequest));
-        } catch (BadCredentialsException e) {
+        } catch (BadCredentialsException | IllegalArgumentException e) {
+
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
