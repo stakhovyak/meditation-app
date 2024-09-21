@@ -36,7 +36,7 @@ application:
 token:
     signing:
         key:
-            "hi_mom"
+            "d2lsbGlhbS1naWJzb24tbmV1cm9tYW5jZXItaXMtYS1jb29sLWJvb2stZG9udC15b3UtdGhpbmstcXVlc3Rpb25tYXJrLXdpbGxpYW0tZ2lic29uLW5ldXJvbWFuY2VyLWlzLWEtY29vbC1ib29rLWRvbnQteW91LXRoaW5rLXF1ZXN0aW9ubWFyaw=="
 
 logging:
     level: 

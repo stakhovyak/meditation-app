@@ -2,7 +2,6 @@ package com.weuoimi.user_service.filters;
 
 import java.io.IOException;
 
-import org.apache.el.stream.Optional;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +22,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-// TODO: how to skip filtering for public endpoints
 @Slf4j
 @Component
 @RequiredArgsConstructor

@@ -1,0 +1,234 @@
+openapi: 3.0.1
+info:
+  title: User Service API
+  description: API for user authentication, registration, and profile management
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+paths:
+  /auth/login:
+    post:
+      summary: Login a user
+      description: Performs login and returns JWT token
+      requestBody:
+        description: Login request containing email and password
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequestDto'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwtAuthResponse'
+        '401':
+          description: Unauthorized (Invalid credentials)
+
+  /auth/register:
+    post:
+      summary: Register a new user
+      description: Registers a user with email, password, and username
+      requestBody:
+        description: Registration request containing email, password, and username
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationRequestDto'
+      responses:
+        '200':
+          description: Successful registration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwtAuthResponse'
+        '400':
+          description: Invalid input data
+
+  /profiles/{username}:
+    get:
+      summary: Get user profile by username
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved user profile
+        '404':
+          description: User not found
+    put:
+      summary: Update user profile
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: User profile data to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User profile successfully updated
+        '404':
+          description: User not found
+    delete:
+      summary: Delete a user
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: User successfully deleted
+        '404':
+          description: User not found
+
+  /profiles:
+    get:
+      summary: Get all users
+      responses:
+        '200':
+          description: Successfully retrieved list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /profiles/{username}/password:
+    patch:
+      summary: Change user password
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Password change request data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordChangeRequest'
+      responses:
+        '200':
+          description: Password successfully changed
+        '400':
+          description: Invalid input
+        '404':
+          description: User not found
+
+  /profiles/email/{email}:
+    get:
+      summary: Get user profile by email
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved user profile
+        '404':
+          description: User not found
+
+  /profiles/{username}/email:
+    patch:
+      summary: Update user email
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Email update request data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailUpdateRequest'
+      responses:
+        '200':
+          description: Email successfully updated
+        '404':
+          description: User not found
+
+components:
+  schemas:
+    LoginRequestDto:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+    RegistrationRequestDto:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        username:
+          type: string
+      required:
+        - email
+        - password
+        - username
+
+    JwtAuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+
+    PasswordChangeRequest:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+      required:
+        - oldPassword
+        - newPassword
+
+    EmailUpdateRequest:
+      type: object
+      properties:
+        newEmail:
+          type: string
+      required:
+        - newEmail

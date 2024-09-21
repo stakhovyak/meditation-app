@@ -9,4 +9,6 @@ why the fuck? May be caused by RegistrationController or/and AuthService BUT mos
 ## TODOS
 
 - add validation
-- make DTOs null-proof
+- make DTOs null-proof (try Optional<>)
+- add resources controller. try creating some filter
+- rename db to Users not "_user" (what the fuck was i thinking?)
