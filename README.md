@@ -38,5 +38,6 @@ Here are my thoughts about how the app should look like
 
 ## TODOS
 
-- configure swagger/openApi for each service
-- dockerize everything before
+- configure swagger/openApi for each service DONE
+- dockerize everything before DONE
+- make common pom.xml for all microservices
