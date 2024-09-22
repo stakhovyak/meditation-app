@@ -1,6 +1,8 @@
 package com.weuoimi.user_service.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +39,15 @@ public class RegistrationController {
     )
     @PostMapping("/register")
     public ResponseEntity<JwtAuthResponse> registerProfile(@RequestBody RegistrationRequestDto registrationRequest) {
+        
         log.info("Received registration request: {}", registrationRequest);
-        return ResponseEntity.ok(authService.register(registrationRequest));
+        
+        try {
+            
+            return ResponseEntity.ok(authService.register(registrationRequest));
+        } catch (BadCredentialsException | IllegalArgumentException e) {
+            
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 }

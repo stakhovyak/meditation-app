@@ -34,6 +34,7 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
 
+    @SuppressWarnings("unused")
     private final UserDetailsService userService;
 
     @Bean
@@ -47,7 +48,7 @@ public class SecurityConfig {
                     auth
                         .requestMatchers("/", "/home").permitAll()
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/profiles").hasAnyAuthority("USER", "ADMIN")
+                        /* .requestMatchers("/profiles").hasAnyAuthority("USER", "ADMIN") */
                         .requestMatchers("/swagger-ui/**", "v3/api-docs/**", "swagger-ui.html").permitAll()
                         .anyRequest().authenticated();
                 });

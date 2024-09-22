@@ -1,5 +1,9 @@
 package com.weuoimi.user_service.dto.request;
 
+import java.util.Optional;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,20 +14,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// @JsonIgnoreProperties(ignoreUnknown = true)
-// @JsonInclude(JsonInclude.Include.ALWAYS)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "registration request dto")
 public class RegistrationRequestDto {
     
-    // @NonNull
     @Schema(description = "user's email", required = true)
-    private String email;
+    private Optional<String> email;
 
-    // @NonNull
     @Schema(description = "user's password", required = true)
-    private String password;
+    private Optional<String> password;
 
-    // @NonNull
     @Schema(description = "user's username", required = true)
-    private String username;
+    private Optional<String> username;
 }

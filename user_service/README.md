@@ -12,3 +12,11 @@ why the fuck? May be caused by RegistrationController or/and AuthService BUT mos
 - make DTOs null-proof (try Optional<>)
 - add resources controller. try creating some filter
 - rename db to Users not "_user" (what the fuck was i thinking?)
+
+## REMAINDERS
+
+to access db:
+
+```shell
+docker exec -it postgres-db psql -U user -d userdb
+```

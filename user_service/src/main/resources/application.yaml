@@ -27,12 +27,14 @@ springdoc:
         use-root-path: true
         enabled: true
 
+# Ignore wanrings
 application:
     description:
         "Meditation App"
     version:
         "1.0"
 
+# Ignore warnings 
 token:
     signing:
         key:
