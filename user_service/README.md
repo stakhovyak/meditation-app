@@ -20,3 +20,12 @@ to access db:
 ```shell
 docker exec -it postgres-db psql -U user -d userdb
 ```
+
+admin:
+
+```json
+{
+    "email": "weuoimi@gmail.com"
+    "password": "William_Gibson_321"
+}
+```

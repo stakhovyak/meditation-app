@@ -30,7 +30,7 @@ public class OpenApiConfig {
     public GroupedOpenApi publicProfilesApi() {
         return GroupedOpenApi.builder()
                 .group("Profiles")
-                .pathsToMatch("profiles/**")
+                .pathsToMatch("/api/v1/profiles/**")
                 .build();
     }
 
@@ -38,7 +38,7 @@ public class OpenApiConfig {
     public GroupedOpenApi publicAuthApi() {
         return GroupedOpenApi.builder()
                 .group("Authentification")
-                .pathsToMatch("auth/**")
+                .pathsToMatch("/api/v1/auth/**")
                 .build();
     }
 

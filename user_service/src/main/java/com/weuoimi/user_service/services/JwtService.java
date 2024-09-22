@@ -8,6 +8,5 @@ public interface JwtService {
 
     String generateToken(UserDetails userDetails);
 
-    // TODO: add custom validation later
     boolean isTokenValid(String token, UserDetails userDetails);
 }
