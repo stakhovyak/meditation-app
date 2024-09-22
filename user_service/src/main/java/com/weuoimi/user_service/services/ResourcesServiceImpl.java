@@ -12,7 +12,9 @@ import com.weuoimi.user_service.repos.UserRepository;
 import com.weuoimi.user_service.repos.UserSpecification;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ResourcesServiceImpl implements ResourcesService {
@@ -21,11 +23,17 @@ public class ResourcesServiceImpl implements ResourcesService {
 
     @Override
     public Page<User> getProfile(Map<String, Object> params, Pageable pageable) throws IllegalArgumentException {
-        
-        UserSpecification userSpecification = new UserSpecification(params);
 
-        Specification<User> passwordlessUserSpecification = Specification.where(userSpecification).and(UserSpecification.fitlerOutPasswordParam());
+        Specification<User> passwordlessUserSpecification = new UserSpecification(params);
+        log.info("created user specification for params: {}", params.toString());
+
+        /* Specification<User> passwordlessUserSpecification = Specification.where(userSpecification)
+                .and(UserSpecification.fitlerOutPasswordParam()); */
+
+        log.info("UserSpecification after password filter: {}", passwordlessUserSpecification.toString());
+
+        log.info("filtered out password parameter for security reasons");
 
         return userRepository.findAll(passwordlessUserSpecification, pageable);
-    }     
+    }
 }

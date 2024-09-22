@@ -39,9 +39,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
+        log.debug(". . . . doFilterInternal . . . .");
+
         String authHeader = request.getHeader(AUTHORIZATION_HEADER);
 
-        log.info("Request URI: {}", request.getRequestURI());
+        log.debug("Request URI: {}", request.getRequestURI());
 
         if (authHeader == null || !authHeader.startsWith(BEARER_PREFIX)) {
             filterChain.doFilter(request, response);  
@@ -50,6 +52,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String jwt = authHeader.substring(BEARER_PREFIX.length());
         String userEmail = jwtService.extractUserName(jwt);
+
+        log.debug("extracted username (email) {} from jwt token", userEmail);
 
         if (StringUtils.isNotEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userService.loadUserByUsername(userEmail);
@@ -71,5 +75,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authToken);
         SecurityContextHolder.setContext(context);
+
+        log.debug("Auth context is set!");
     }
 }

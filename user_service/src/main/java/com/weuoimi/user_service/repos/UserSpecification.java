@@ -1,5 +1,7 @@
 package com.weuoimi.user_service.repos;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -20,15 +22,23 @@ public class UserSpecification implements Specification<User> {
     @Override
     public Predicate toPredicate(Root<User> arg0, CriteriaQuery<?> arg1, CriteriaBuilder arg2) {
         
-        Predicate predicate = arg2.conjunction();
 
-        criteria.forEach((field, value) -> {
-            if (arg0.get(field) != null && value != null) {
-                predicate.getExpressions().add(arg2.equal(arg0.get(field), value));
+        List<Predicate> predicates = new ArrayList<>();
+        // if GET /api/v1/profiles?username=example => WHERE username = 'example
+        // if GET /api/v1/profiles?role=ADMIN&email=example@mail.com => WHERE role = 'ADMIN AND email = 'example@mail.com'
+
+        criteria.forEach((param, value) -> {
+            if (value != null && isFieldSupported(param)) { // Check if the field is supported
+                // Create a predicate for the parameter and value
+                predicates.add(arg2.equal(arg0.get(param), value));
             }
         });
 
-        return predicate;
+        return arg2.and(predicates.toArray(new Predicate[0]));
+    }
+
+    private boolean isFieldSupported(String field) {
+        return List.of("username", "role", "email").contains(field); // Supported fields
     }
 
     public static Specification<User> fitlerOutPasswordParam() {
@@ -41,8 +51,7 @@ public class UserSpecification implements Specification<User> {
                 arg0.get("username")
             );
 
-            return null;
+            return arg2.conjunction();
         };
     }
-
 }
