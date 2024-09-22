@@ -11,6 +11,9 @@ no problems
 - add resources controller. try creating some filter DONE
 - rename db to Users not "_user" (what the fuck was i thinking?)
 - frontend mapper (i have no idea)
+- Pagination (i have no idea)
+- PUT method for refreshing user's fields by token
+- DELETE method for deleting own profile
 
 ## REMAINDERS
 
