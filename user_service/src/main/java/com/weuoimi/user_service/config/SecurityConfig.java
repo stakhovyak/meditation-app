@@ -40,7 +40,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        // TODO: make sure repuests match
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) 
                 .csrf(AbstractHttpConfigurer::disable)
